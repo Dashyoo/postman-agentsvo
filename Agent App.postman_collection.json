@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "cf347c26-00cf-4320-8a0e-71779a47decf",
+		"name": "Agent App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26456451"
+	},
+	"item": [
+		{
+			"name": "ТОКЕН",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"token\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"qa@qa.qa\",\r\n    \"password\": \"111\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/{{api_version}}/users/obtain-token",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"users",
+						"obtain-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Регистрация водилы",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"first_name\": \"Дарья\",\r\n  \"last_name\": \"Дронова\",\r\n  \"patronymic\": \"Владиславовна\",\r\n  \"birth_date\": \"1995-04-24\",\r\n  \"driving_experience_started\": \"2018-06-25\",\r\n  \"driver_licenses\": [\r\n    {\r\n      \"credential_type\": \"DRIVER_LICENSE\",\r\n      \"number\": \"619605\",\r\n      \"series\": \"7031\",\r\n      \"issue_date\": \"2018-06-25\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/{{api_version}}/insured_objects/drivers",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						"drivers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Регистрация собственника",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"last_name\": \"Дронова\",\r\n  \"first_name\": \"Дарья\",\r\n  \"patronymic\": \"Владиславовна\",\r\n  \"birth_date\": \"1995-04-24\",\r\n  \"credential\": [\r\n    {\r\n      \"credential_type\": \"RUSSIAN_INTERNAL_PASSPORT\",\r\n      \"issue_date\": \"2019-06-27\",\r\n      \"issue_point\": \"УФМС РОССИИ ПО ПЕНЗЕНСКОЙ ОБЛАСТИ\",\r\n      \"issue_point_code\": \"700-002\",\r\n      \"number\": \"865497\",\r\n      \"series\": \"6919\"\r\n    }\r\n  ],\r\n  \"address\": [\r\n    {\r\n      \"address_query\": \"г Пенза, ул Говорова, д 62 к 30\",\r\n      \"address_type\": \"LEGAL_ADDRESS\",\r\n      \"region_kladr_id\": \"7000000000000\",\r\n      \"city_kladr_id\": \"7000000100000\"\r\n    },\r\n    {\r\n      \"address_query\": \"г Пенза, ул Говорова, д 62 к 30\",\r\n      \"address_type\": \"ACTUAL_ADDRESS\",\r\n      \"region_kladr_id\": \"7000000000000\",\r\n      \"city_kladr_id\": \"7000000100000\"\r\n    }\r\n  ],\r\n   \"contact\": [\r\n        {\r\n            \"contact_type\": \"PHONE\",\r\n            \"data\": \"+79992061450\"\r\n        },\r\n        {\r\n            \"contact_type\": \"EMAIL\",\r\n            \"data\": \"ddyo@yandex.ru\"\r\n        }\r\n   ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/{{api_version}}/insured_objects/owners/natural_persons",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						"owners",
+						"natural_persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Регистрация страхователя",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"last_name\": \"Дронова\",\r\n  \"first_name\": \"Дарья\",\r\n  \"patronymic\": \"Владиславовна\",\r\n  \"birth_date\": \"1995-04-24\",\r\n  \"credential\": [\r\n    {\r\n      \"credential_type\": \"RUSSIAN_INTERNAL_PASSPORT\",\r\n      \"issue_date\": \"2019-06-27\",\r\n      \"issue_point\": \"УФМС РОССИИ ПО ПЕНЗЕНСКОЙ ОБЛАСТИ\",\r\n      \"issue_point_code\": \"700-002\",\r\n      \"number\": \"865497\",\r\n      \"series\": \"6919\"\r\n    }\r\n  ],\r\n  \"address\": [\r\n    {\r\n      \"address_query\": \"г Пенза, ул Говорова, д 62 к 30\",\r\n      \"address_type\": \"LEGAL_ADDRESS\",\r\n      \"region_kladr_id\": \"7000000000000\",\r\n      \"city_kladr_id\": \"7000000100000\"\r\n    },\r\n    {\r\n      \"address_query\": \"г Пенза, ул Говорова, д 62 к 30\",\r\n      \"address_type\": \"ACTUAL_ADDRESS\",\r\n      \"region_kladr_id\": \"7000000000000\",\r\n      \"city_kladr_id\": \"7000000100000\"\r\n    }\r\n  ],\r\n   \"contact\": [\r\n        {\r\n            \"contact_type\": \"PHONE\",\r\n            \"data\": \"+79992061450\"\r\n        },\r\n        {\r\n            \"contact_type\": \"EMAIL\",\r\n            \"data\": \"ddyo@yandex.ru\"\r\n        }\r\n   ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/{{api_version}}/insured_objects/insurants/natural_persons",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						"insurants",
+						"natural_persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Регистрация машины",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"car_model_id\": 261020578, \r\n  \"engine_power\": 654,\r\n  \"vin_number\": \"FHG35487535\",\r\n  \"number_plate\": \"F3545453\",\r\n  \"manufacturing_year\": 2023,\r\n  \"max_mass\": null,\r\n  \"has_trailer\": false,\r\n  \"credential\": [\r\n    {\r\n      \"credential_type\": \"VEHICLE_REGISTRATION\",\r\n      \"issue_date\": \"2011-11-01\",\r\n      \"number\": \"204326\",\r\n      \"series\": \"70PM\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/{{api_version}}/insured_objects/cars",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Формирование единой сущности в виде гномика",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "token {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"drivers\": [\r\n        \"aaec5000-7df5-48fb-a639-6bf5ee97eb49\"\r\n        ],\r\n    \"owner\": \"1a038fcf-3480-4cd8-8692-0652f22763cb\",\r\n    \"car\": \"c566d76a-4287-4473-af6f-3e3fe4a863f2\",\r\n    \"insurant\": \"a26ff842-6125-4dc7-a5b0-591eb51e6fa8\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/{{api_version}}/insured_objects/",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Регистрация договора",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "token {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"valid_from\": \"2023-06-30\",\r\n  \"valid_to\": \"2024-06-29\",\r\n  \"insurance_period\": 8,\r\n  \"target_of_using\": 11,\r\n  \"drivers_ids\": [\"9aa67727-3f25-4601-9b01-5330bd0a3fcd\"],\r\n  \"is_car_without_registration\": false,\r\n  \"engine_power\": 110,\r\n  \"has_car_trailer\": false,\r\n  \"car_type\": \"B\",\r\n  \"owner_registration\":   {\r\n      \"address_query\": \"г Пенза, ул Говорова, д 62 к 30\",\r\n      \"address_type\": \"ACTUAL_ADDRESS\",\r\n      \"region_kladr_id\": \"7000000000000\",\r\n      \"city_kladr_id\": \"7000000100000\"\r\n    },\r\n  \"periods\": []\r\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/v3/agreements/calculations",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v3",
+						"agreements",
+						"calculations"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "partner.agentapp.ru",
+			"type": "string"
+		},
+		{
+			"key": "api_version",
+			"value": "v1",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "a3f1f7e29076fc6ecc4f3b49c7ee8e71c605a37c"
+		}
+	]
+}
